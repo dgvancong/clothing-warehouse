@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Quản lý sản phẩm - Clothing Warehouse</title>
+        <link rel="icon" type="image/png" href="assets/images/jira-software-logo.png">
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/golbal.css">
+        <link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css">
+    </head>
+    <body>  
+
+        <div class="app-wrapper">
+        <!-- Sidebar (Bootstrap layout) -->
+        <div class="sidebar-col" id="sidebarCol" style="width: 250px;">
+            <div class="hrms-sidebar">
+                <div class="sidebar-brand">
+                    <div class="logo">
+                        <img src="assets/images/jira-software-logo.png" alt="logo">
+                        <span id="brandTextLogo">Warehouse</span>
+                    </div>
+                </div>
+                <div class="flex-grow-1">
+                    <ul class="nav-menu-custom" id="mainNavigation">
+                        <!-- Dashboard -->
+                        <li class="nav-item-custom">
+                            <a class="nav-link-custom" href="pages/dashboard.html">
+                                <img src="assets/icons/square.grid.2x2.png" width="18px" height="18px" alt="">
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <!-- Quản lý hoá đơn (submenu) -->
+                        <li class="nav-item-custom active">
+                            <a class="nav-link-custom" href="index.html">
+                                <img src="assets/icons/tshirt.png" width="18px" height="18px" alt="">
+                                <span>Danh sách sản phẩm</span>
+                            </a>
+                        </li>
+                        <!-- Quản lý kho -->
+                        <li class="nav-item-custom">
+                            <a class="nav-link-custom" href="pages/invoice.html">
+                                <img src="assets/icons/doc.png" width="18px" height="18px" alt="">
+                                <span>Danh sách hoá đơn</span>
+                            </a>
+                        </li>
+                        <!-- Cài đặt -->
+                        <li class="nav-item-custom">
+                            <a class="nav-link-custom" href="#">
+                                <img src="assets/icons/gearshape.png" width="18px" height="18px" alt="">
+                                <span>Cài đặt</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="p-3 d-flex justify-content-center border-top mt-auto">
+                    <button class="collapse-toggle-btn" id="toggleSidebarBtn">
+                        <img src="assets/icons/Icon=sidebar.squares.trailing.png" width="18px" height="18px" alt="">
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main content (bootstrap hỗ trợ) -->
+        <div class="main-content">
+            <div class="top-bar d-flex align-items-center justify-content-between flex-wrap">
+                <div></div>
+                <div class="d-flex align-items-center gap-3">
+                    <div class="position-relative" id="userDropdownWrapper">
+                        <div class="user-profile-card d-flex align-items-center gap-2" id="userProfileTrigger">
+                            <img class="avatar-img" src="assets/images/jira-software-logo.png" alt="avatar">
+                            <div class="d-none d-sm-block">
+                                <p class="mb-0 fw-bold fs-6">Clothing Warehouse</p>
+                                <p class="mb-0 text-secondary" style="font-size: 12px;">Clothing@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-area" id="dynamicContent">
+                <div class="user-system">
+                    <div class="header-action d-flex align-items-center justify-content-between p-3 pb-0">
+                        <div class="breadcrumbs">
+                            <h5 class="fw6">Danh sách sản phẩm</h5>
+                            <p class="m-0 fw5 fs4"> Danh sách sản phẩm</p>
+                        </div>
+                    </div>
+                    <div class="action d-flex gap-3 justify-content-end p-3 pt-0 pb-0">
+                        <!-- Tìm kiếm -->
+                        <div class="search-wrapper">
+                            <div class="position-relative">
+                                <img src="assets/icons/text.magnifyingglass.png" 
+                                    alt="Tìm kiếm" 
+                                    class="position-absolute top-50 start-0 translate-middle-y ms-3"
+                                    style="width: 16px; height: 16px; opacity: 0.6;">
+                                <input type="text" 
+                                    class="form-control ps-5" 
+                                    placeholder="Tìm kiếm sản phẩm..." 
+                                    id="searchInput"
+                                    style="border-radius: 30px; padding: 10px 15px 10px 40px;">
+                            </div>
+                        </div>
+
+                        <!-- Giỏ hàng -->
+                        <button class="cart-button" id="cartButton">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6 6H20L18 16H8L6 6ZM6 6L5 3H2" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="8" cy="20" r="1.5" stroke="white" stroke-width="1.5"/>
+                                <circle cx="18" cy="20" r="1.5" stroke="white" stroke-width="1.5"/>
+                            </svg>
+                            Giỏ hàng
+                            <span id="cartCount" class="cart-badge">0</span>
+                        </button>
+
+                        <!-- Thêm mới -->
+                        <button class="border-0 add fw5 px-3 py-2 rounded-2 text-white d-flex align-items-center gap-2"  style="background: #03A9F4;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 4V20M20 12H4" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            Thêm mới
+                        </button>
+
+                        <!-- Bộ lọc -->
+                        <div class="position-relatives" id="filterWrapper">
+                            <button class="border-0 filter fw5 p-2 rounded-2 d-flex align-items-center gap-2" id="filterBtn">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M4 4h16v2.172a2 2 0 01-.586 1.414l-5.828 5.828a2 2 0 00-.586 1.414V20l-4-2v-6.172a2 2 0 00-.586-1.414L4.586 7.586A2 2 0 014 6.172V4z" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Bộ lọc
+                                <span id="activeFilterBadge" class="active-filter-badge" style="display: none;"></span>
+                            </button>
+                            
+                            <!-- Dropdown Menu -->
+                            <div id="filterDropdown" class="filter-dropdown" style="display: none;">
+                                <div class="dropdown-header p-3 d-flex">
+                                    <h5 class="mb-0">Bộ lọc sản phẩm</h5>
+                                    <button id="clearAllFiltersBtn" class="clear-all-btn">Xóa tất cả</button>
+                                </div>
+
+                                <div class="dropdown-content">
+
+                                    <!-- Màu sắc -->
+                                    <div class="filter-section">
+                                        <h6 class="filter-title">Màu sắc</h6>
+                                        <div class="color-options-wrapper">
+                                            <div class="color-options" id="colorOptions"></div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                
+                                <div class="filter-actions">
+                                    <button id="cancelFilterBtn" class="btn-cancel-filter">Hủy</button>
+                                    <button id="applyFilterBtn" class="btn-apply-filter">Áp dụng</button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="content table-scroll-wrapper p-3">
+                    <table class="custom-table border-shadow radius-8">
+                        <thead>
+                            <tr>
+                                <th class="text-start">Mã sản phẩm</th>
+                                <th class="text-start">Tên sản phẩm</th>
+                                <th class="text-start">Danh mục</th>
+                                <th class="text-start">Thương hiệu</th>
+                                <th class="text-start">Màu sắc</th>
+                                <th class="text-start">Kích thước</th>
+                                <th class="text-start">Giá nhập</th>
+                                <th class="text-start">Giá bán</th>
+                                <th class="text-start">Kho</th>
+                                <th class="text-start">Trạng thái</th>
+                                <th class="text-center">Hoạt động</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            <tr><td colspan="11" class="text-center p-3">Đang tải dữ liệu...</td></tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="11" class="p-3 text-center cur-pointer">
+                                    <div class="pagination-wrapper">
+                                        <div class="d-flex align-items-center justify-content-between gap-3 flex-wrap" style="width: 100%;">
+                                            <div class="text-muted small">
+                                                Hiển thị <span id="startCount">0</span> - <span id="endCount">0</span> trên tổng số <span id="totalCount">0</span> sản phẩm
+                                            </div>
+                                            <div class="d-flex gap-3 cur-pointer">
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <button class="btn-page" id="prevPage" disabled>
+                                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                            <path d="M15 18L9 12L15 6" stroke-linecap="round" stroke-linejoin="round"/>
+                                                        </svg>
+                                                    </button>
+                                                    <span class="page-info">
+                                                        Trang <span id="currentPage">1</span> / <span id="totalPages">1</span>
+                                                    </span>
+                                                    <button class="btn-page" id="nextPage" disabled>
+                                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                            <path d="M9 18L15 12L9 6" stroke-linecap="round" stroke-linejoin="round"/>
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <span class="text-muted small">Hiển thị</span>
+                                                    <select id="pageSizeSelect" class="form-select-sm cur-pointer" style="width: 70px;">
+                                                        <option value="5">5</option>
+                                                        <option value="10" selected>10</option>
+                                                        <option value="20">20</option>
+                                                        <option value="50">50</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <!-- JS -->
+        <script src="libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="js/layout.js"></script>
+        <script src="js/index.js"></script>
+        
+    </body>
+</html>
+
+
+

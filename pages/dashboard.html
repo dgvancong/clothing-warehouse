@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Clothing Warehouse</title>
+    <link rel="icon" type="image/png" href="../assets/images/jira-software-logo.png">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/golbal.css">
+    <link rel="stylesheet" href="../libs/bootstrap/css/bootstrap.min.css">
+</head>
+<body>  
+
+    <div class="app-wrapper">
+    <!-- Sidebar (Bootstrap layout) -->
+    <div class="sidebar-col" id="sidebarCol" style="width: 250px;">
+        <div class="hrms-sidebar">
+            <div class="sidebar-brand">
+                <div class="logo">
+                    <img src="../assets/images/jira-software-logo.png" alt="logo">
+                    <span id="brandTextLogo">Warehouse</span>
+                </div>
+            </div>
+            <div class="flex-grow-1">
+                <ul class="nav-menu-custom" id="mainNavigation">
+                    <!-- Dashboard -->
+                    <li class="nav-item-custom active">
+                        <a class="nav-link-custom" href="../pages/dashboard.html">
+                            <img src="../assets/icons/square.grid.2x2.png" width="18px" height="18px" alt="">
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <!-- Quản lý hoá đơn (submenu) -->
+                    <li class="nav-item-custom">
+                        <a class="nav-link-custom" href="../index.html">
+                            <img src="../assets/icons/tshirt.png" width="18px" height="18px" alt="">
+                            <span>Danh sách sản phẩm</span>
+                        </a>
+                    </li>
+                    <!-- Quản lý kho -->
+                    <li class="nav-item-custom">
+                        <a class="nav-link-custom" href="../pages/invoice.html">
+                            <img src="../assets/icons/doc.png" width="18px" height="18px" alt="">
+                            <span>Danh sách hoá đơn</span>
+                        </a>
+                    </li>
+                    <!-- Cài đặt -->
+                    <li class="nav-item-custom">
+                        <a class="nav-link-custom" href="#">
+                            <img src="../assets/icons/gearshape.png" width="18px" height="18px" alt="">
+                            <span>Cài đặt</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="p-3 d-flex justify-content-center border-top mt-auto">
+                <button class="collapse-toggle-btn" id="toggleSidebarBtn">
+                    <img src="../assets/icons/Icon=sidebar.squares.trailing.png" width="18px" height="18px" alt="">
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main content (bootstrap hỗ trợ) -->
+    <div class="main-content">
+        <div class="top-bar d-flex align-items-center justify-content-between flex-wrap">
+            <div></div>
+            <div class="d-flex align-items-center gap-3">
+                <div class="position-relative" id="userDropdownWrapper">
+                    <div class="user-profile-card d-flex align-items-center gap-2" id="userProfileTrigger">
+                        <img class="avatar-img" src="../assets/images/jira-software-logo.png" alt="avatar">
+                        <div class="d-none d-sm-block">
+                            <p class="mb-0 fw-bold fs-6">Clothing Warehouse</p>
+                            <p class="mb-0 text-secondary" style="font-size: 12px;">Clothing@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-area" id="dynamicContent">
+            <div class="container-fluid px-0">
+                <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 70vh;">
+                    
+                    <!-- Ảnh 404 hoặc icon -->
+                    <div class="text-center mb-4">
+                        <div class="display-1 fw-bold text-muted" style="font-size: 120px; letter-spacing: 10px;">
+                            4
+                            🚀
+                            4
+                        </div>
+                    </div>
+                    
+                    <h1 class="text-center fw-bold mb-3" style="color: #1e293b; font-size: 48px;">
+                        Trang không tìm thấy
+                    </h1>
+                    
+                    <p class="text-center text-muted mb-4" style="font-size: 18px; max-width: 500px;">
+                        Rất tiếc, trang bạn đang tìm kiếm không tồn tại hoặc đã được di chuyển.
+                    </p>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JS -->
+<script src="../libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../js/layout.js"></script>
+    
+</body>
+</html>
+
+
+
