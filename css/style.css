@@ -622,3 +622,291 @@
 .btn-apply-filter:hover {
   background: #0288d1;
 }
+/* Modal Styles */
+.modal-product-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  backdrop-filter: blur(4px);
+}
+
+.modal-product-container {
+  background: white;
+  border-radius: 24px;
+  width: 800px;
+  max-width: 90%;
+  max-height: 85vh;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modal-product-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid #e9edf2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+}
+
+.modal-product-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+}
+
+.modal-product-close {
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #94a3b8;
+  transition: all 0.2s;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.modal-product-close:hover {
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+.modal-product-body {
+  padding: 24px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.modal-product-footer {
+  padding: 16px 24px 24px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  border-top: 1px solid #e9edf2;
+  background: white;
+}
+
+/* Form Styles */
+/* ===== FORM LAYOUT ===== */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -8px;
+}
+
+.g-3 {
+  gap: 16px;
+}
+
+.col-md-3,
+.col-md-4,
+.col-md-6,
+.col-12 {
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.col-md-3 {
+  flex: 0 0 25%;
+}
+
+.col-md-4 {
+  flex: 0 0 33.3333%;
+}
+
+.col-md-6 {
+  flex: 0 0 50%;
+}
+
+.col-12 {
+  flex: 0 0 100%;
+}
+
+/* ===== FORM ===== */
+#addProductForm {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* ===== LABEL ===== */
+.form-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+/* ===== INPUT ===== */
+.form-control,
+.form-select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 14px;
+  background: #f8fafc;
+  transition: all 0.25s ease;
+  font-family: "Inter", sans-serif;
+}
+
+.form-control::placeholder {
+  color: #94a3b8;
+}
+
+.form-control:hover,
+.form-select:hover {
+  border-color: #cbd5f5;
+}
+
+.form-control:focus,
+.form-select:focus {
+  outline: none;
+  border-color: #03a9f4;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(3, 169, 244, 0.15);
+}
+
+/* ===== TEXT ===== */
+.text-danger {
+  color: #ef4444;
+}
+
+.text-muted {
+  color: #64748b;
+  font-size: 11px;
+  margin-top: 4px;
+}
+
+/* ===== TEXTAREA ===== */
+textarea.form-control {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* ===== COLOR CHECKBOX ===== */
+.color-checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 6px;
+}
+
+.color-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  cursor: pointer;
+  background: #f1f5f9;
+  border: 1px solid transparent;
+  transition: all 0.25s ease;
+}
+
+.color-checkbox:hover {
+  background: #e2e8f0;
+}
+
+/* Ẩn checkbox mặc định */
+.color-checkbox input {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #cbd5e1;
+  border-radius: 4px;
+  position: relative;
+  cursor: pointer;
+}
+
+/* Khi checked */
+.color-checkbox input:checked {
+  background-color: #03a9f4;
+  border-color: #03a9f4;
+}
+
+.color-checkbox input:checked::after {
+  content: "✔";
+  color: #fff;
+  font-size: 10px;
+  position: absolute;
+  top: -8px;
+  left: 0px;
+}
+
+/* Active tag */
+.color-checkbox input:checked + span,
+.color-checkbox input:checked {
+  font-weight: 600;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .col-md-3,
+  .col-md-4,
+  .col-md-6 {
+    flex: 0 0 100%;
+  }
+}
+
+/* Buttons */
+.btn-cancel-modal,
+.btn-submit-modal {
+  padding: 10px 24px;
+  border-radius: 40px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.btn-cancel-modal {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.btn-cancel-modal:hover {
+  background: #e2e8f0;
+}
+
+.btn-submit-modal {
+  background: #03a9f4;
+  color: white;
+}
+
+.btn-submit-modal:hover {
+  background: #0288d1;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(3, 169, 244, 0.3);
+}
