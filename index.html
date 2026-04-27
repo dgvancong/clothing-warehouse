@@ -140,7 +140,15 @@
                                         <button id="clearAllFiltersBtn" class="clear-all-btn">Xóa tất cả</button>
                                     </div>
 
+                                    
                                     <div class="dropdown-content">
+                                        <!-- Danh mục sản phẩm -->
+                                        <div class="filter-section">
+                                            <h6 class="filter-title">Danh mục</h6>
+                                            <select id="categoryFilter" class="form-select category-select">
+                                                <option value="">Tất cả danh mục</option>
+                                            </select>
+                                        </div>
 
                                         <!-- Màu sắc -->
                                         <div class="filter-section">
@@ -149,7 +157,6 @@
                                                 <div class="color-options" id="colorOptions"></div>
                                             </div>
                                         </div>
-
                                     </div>
                                     
                                     <div class="filter-actions">
@@ -169,7 +176,7 @@
                                     <th class="text-start">Danh mục</th>
                                     <th class="text-start">Thương hiệu</th>
                                     <th class="text-start">Màu sắc</th>
-                                    <th class="text-start">Kích thước</th>
+                                    <!-- <th class="text-start">Kích thước</th> -->
                                     <th class="text-start">Giá nhập</th>
                                     <th class="text-start">Giá bán</th>
                                     <th class="text-start">Kho</th>
@@ -227,7 +234,7 @@
 
         <!-- Modal Thêm mới sản phẩm -->
         <div id="addProductModal" class="modal-product-overlay" style="display: none;">
-            <div class="modal-product-container">
+            <div class="modal-product-container" style="width: 900px; max-width: 95%;">
                 <div class="modal-product-header">
                     <h3 class="modal-product-title">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -240,97 +247,120 @@
                 
                 <div class="modal-product-body">
                     <form id="addProductForm">
-                        <div class="row g-3">
-                            <!-- Mã sản phẩm -->
-                            <div class="col-12">
+                        <!-- Thông tin cơ bản -->
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-5">
                                 <label class="form-label fw-semibold">Mã sản phẩm <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="productCode" name="productCode" required placeholder="Nhập mã sản phẩm">
+                                <input type="text" class="form-control" id="productCode" placeholder="Nhập mã sản phẩm">
                             </div>
-                            
-                            <!-- Tên sản phẩm -->
-                            <div class="col-12">
+                            <div class="col-md-5">
                                 <label class="form-label fw-semibold">Tên sản phẩm <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="productName" name="productName" required placeholder="Nhập tên sản phẩm">
+                                <input type="text" class="form-control" id="productName" placeholder="Nhập tên sản phẩm">
                             </div>
-                            
-                            <!-- Loại sản phẩm -->
-                             <div class="col-12">
+                            <div class="col-md-5">
                                 <label class="form-label fw-semibold">Loại sản phẩm</label>
-                                <input type="text" class="form-control" id="categoryName" name="categoryName" placeholder="Nhập loại sản phẩm">
+                                <input type="text" class="form-control" id="categoryName" placeholder="Nhập loại sản phẩm">
                             </div>
-                            
-                            <!-- Thương hiệu -->
-                            <div class="col-12">
+                            <div class="col-md-5">
                                 <label class="form-label fw-semibold">Thương hiệu</label>
-                                <input type="text" class="form-control" id="brandName" name="brandName" placeholder="Nhập thương hiệu">
+                                <input type="text" class="form-control" id="brandName" placeholder="Nhập thương hiệu">
                             </div>
-                            
-                            <!-- Nhà cung cấp -->
-                            <div class="col-12">
+                            <div class="col-md-5">
                                 <label class="form-label fw-semibold">Nhà cung cấp</label>
-                                <input type="text" class="form-control" id="supplierName" name="supplierName" placeholder="Nhập nhà cung cấp">
+                                <input type="text" class="form-control" id="supplierName" placeholder="Nhập nhà cung cấp">
                             </div>
-                            
-                            <!-- Màu sắc -->
-                            <div class="col-12">
-                                <label class="form-label fw-semibold">Màu sắc</label>
-                                <div class="color-checkbox-group" id="colorGroup">
-                                    <label class="color-checkbox"><input type="checkbox" value="Đen"> Đen</label>
-                                    <label class="color-checkbox"><input type="checkbox" value="Trắng"> Trắng</label>
-                                    <label class="color-checkbox"><input type="checkbox" value="Đỏ"> Đỏ</label>
-                                    <label class="color-checkbox"><input type="checkbox" value="Xanh dương"> Xanh dương</label>
-                                    <label class="color-checkbox"><input type="checkbox" value="Xanh lá"> Xanh lá</label>
-                                    <label class="color-checkbox"><input type="checkbox" value="Vàng"> Vàng</label>
-                                    <label class="color-checkbox"><input type="checkbox" value="Tím"> Tím</label>
-                                    <label class="color-checkbox"><input type="checkbox" value="Cam"> Cam</label>
-                                    <label class="color-checkbox"><input type="checkbox" value="Hồng"> Hồng</label>
-                                    <label class="color-checkbox"><input type="checkbox" value="Xám"> Xám</label>
-                                    <label class="color-checkbox"><input type="checkbox" value="Nâu"> Nâu</label>
-                                </div>
-                            </div>
-                            
-                            <!-- Kích thước -->
-                            <div class="col-12">
-                                <label class="form-label fw-semibold">Kích thước</label>
-                                <input type="text" class="form-control" id="size" name="size" placeholder="VD: S,M,L hoặc 38,39,40">
-                            </div>
-                            
-                            <!-- Chất liệu -->
-                            <div class="col-12">
+                            <div class="col-md-5">
                                 <label class="form-label fw-semibold">Chất liệu</label>
-                                <input type="text" class="form-control" id="material" name="material" placeholder="VD: Cotton, Polyester">
+                                <input type="text" class="form-control" id="material" placeholder="VD: Cotton, Polyester">
                             </div>
-                            
-                            <!-- Giá nhập -->
-                            <div class="col-12">
-                                <label class="form-label fw-semibold">Giá nhập <span class="text-danger">*</span></label>
-                                <input type="number" class="form-control" id="purchasePrice" name="purchasePrice" required placeholder="0">
-                            </div>
-                            
-                            <!-- Giá bán -->
-                            <div class="col-12">
-                                <label class="form-label fw-semibold">Giá bán <span class="text-danger">*</span></label>
-                                <input type="number" class="form-control" id="sellingPrice" name="sellingPrice" required placeholder="0">
-                            </div>
-                            
-                            <!-- Số lượng tồn kho -->
-                            <div class="col-12">
-                                <label class="form-label fw-semibold">Số lượng <span class="text-danger">*</span></label>
-                                <input type="number" class="form-control" id="quantityInStock" name="quantityInStock" required placeholder="0">
-                            </div>
-                            
-                            <!-- Mô tả -->
-                            <div class="col-12">
+                            <div class="col-md-12">
                                 <label class="form-label fw-semibold">Mô tả</label>
-                                <textarea class="form-control" id="description" name="description" rows="3" placeholder="Nhập mô tả sản phẩm"></textarea>
+                                <textarea class="form-control" id="description" rows="2" placeholder="Nhập mô tả sản phẩm"></textarea>
                             </div>
                         </div>
+
+                        <!-- Màu sắc và số lượng theo size -->
+                        <div class="form-section">
+                            <div class="section-title fw-semibold mb-3">🎨 Màu sắc & Số lượng theo kích thước</div>
+                            <div id="colorVariantsContainer">
+                                <!-- Mỗi màu sẽ có 1 block riêng -->
+                                <div class="color-variant-block" data-color-index="0">
+                                    <div class="d-flex align-items-center gap-3 mb-2">
+                                        <div class="color-selector">
+                                            <label class="form-label mb-0">Màu sắc</label>
+                                            <select class="form-select color-select" style="width: 150px;">
+                                                <option value="">Chọn màu</option>
+                                                <option value="Đỏ">Đỏ</option>
+                                                <option value="Xanh">Xanh</option>
+                                                <option value="Đen">Đen</option>
+                                                <option value="Trắng">Trắng</option>
+                                                <option value="Vàng">Vàng</option>
+                                                <option value="Hồng">Hồng</option>
+                                                <option value="Xám">Xám</option>
+                                                <option value="Tím">Tím</option>
+                                                <option value="Cam">Cam</option>
+                                                <option value="Nâu">Nâu</option>
+                                                <option value="Xanh lá">Xanh lá</option>
+                                            </select>
+                                        </div>
+                                        <button type="button" class="btn btn-danger btn-sm mt-3" onclick="removeColorVariant(this)" style="display: none;">🗑️</button>
+                                    </div>
+                                    <div class="size-quantity-table mb-3">
+                                        <table class="table table-sm table-bordered">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th style="width: 80px">Kích thước</th>
+                                                    <th style="width: 120px">Số lượng</th>
+                                                    <th style="width: 100px">Giá bán</th>
+                                                    <th style="width: 100px">Giá nhập</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>S</td>
+                                                    <td><input type="number" class="form-control form-control-sm size-qty" data-size="S" value="0" min="0"></td>
+                                                    <td><input type="number" class="form-control form-control-sm size-price" data-size="S" value="0" min="0"></td>
+                                                    <td><input type="number" class="form-control form-control-sm size-cost" data-size="S" value="0" min="0"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>M</td>
+                                                    <td><input type="number" class="form-control form-control-sm size-qty" data-size="M" value="0" min="0"></td>
+                                                    <td><input type="number" class="form-control form-control-sm size-price" data-size="M" value="0" min="0"></td>
+                                                    <td><input type="number" class="form-control form-control-sm size-cost" data-size="M" value="0" min="0"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>L</td>
+                                                    <td><input type="number" class="form-control form-control-sm size-qty" data-size="L" value="0" min="0"></td>
+                                                    <td><input type="number" class="form-control form-control-sm size-price" data-size="L" value="0" min="0"></td>
+                                                    <td><input type="number" class="form-control form-control-sm size-cost" data-size="L" value="0" min="0"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>XL</td>
+                                                    <td><input type="number" class="form-control form-control-sm size-qty" data-size="XL" value="0" min="0"></td>
+                                                    <td><input type="number" class="form-control form-control-sm size-price" data-size="XL" value="0" min="0"></td>
+                                                    <td><input type="number" class="form-control form-control-sm size-cost" data-size="XL" value="0" min="0"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>XXL</td>
+                                                    <td><input type="number" class="form-control form-control-sm size-qty" data-size="XXL" value="0" min="0"></td>
+                                                    <td><input type="number" class="form-control form-control-sm size-price" data-size="XXL" value="0" min="0"></td>
+                                                    <td><input type="number" class="form-control form-control-sm size-cost" data-size="XXL" value="0" min="0"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-outline-primary btn-sm mt-2" onclick="addColorVariant()">
+                                + Thêm màu sắc khác
+                            </button>
+                        </div>
+                        
                     </form>
                 </div>
-                
-                <div class="modal-product-footer">
-                    <button class="btn-cancel-modal" onclick="closeAddProductModal()">Hủy</button>
-                    <button class="btn-submit-modal" onclick="submitAddProduct()">Thêm sản phẩm</button>
+                <div class="modal-product-footer mt-3">
+                    <button type="button" class="btn-cancel-modal" onclick="closeAddProductModal()">Hủy</button>
+                    <button type="button" class="btn-submit-modal" onclick="submitAddProductV2()">Thêm sản phẩm</button>
                 </div>
             </div>
         </div>

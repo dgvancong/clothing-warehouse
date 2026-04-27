@@ -317,15 +317,12 @@ function updateDisplayDate() {
 
 // ==================== CẬP NHẬT THỐNG KÊ ====================
 function updateStats() {
-  // Chỉ thống kê trên dữ liệu hiện tại (có thể không chính xác 100%)
-  // Nếu cần chính xác, nên gọi API thống kê riêng
   const totalRevenue = filteredOrders.reduce((sum, order) => sum + (order.totalAmount || 0), 0);
   const totalQuantity = filteredOrders.reduce((sum, order) => sum + (order.quantity || 0), 0);
   const orderCount = filteredOrders.length;
   const completedOrders = filteredOrders.filter(o => o.orderStatus === 'Hoàn thành').length;
   const completionRate = orderCount > 0 ? (completedOrders / orderCount * 100) : 0;
   const avgOrderValue = orderCount > 0 ? totalRevenue / orderCount : 0;
-  
   const totalRevenueEl = document.getElementById("totalRevenue");
   const totalQuantityEl = document.getElementById("totalQuantity");
   const orderCountEl = document.getElementById("orderCount");
@@ -333,7 +330,6 @@ function updateStats() {
   const completedOrdersEl = document.getElementById("completedOrders");
   const avgOrderValueEl = document.getElementById("avgOrderValue");
   const orderCountBadgeEl = document.getElementById("orderCountBadge");
-  
   if (totalRevenueEl) totalRevenueEl.textContent = formatCurrency(totalRevenue);
   if (totalQuantityEl) totalQuantityEl.textContent = totalQuantity.toLocaleString();
   if (orderCountEl) orderCountEl.textContent = totalCount; // Dùng totalCount từ API
