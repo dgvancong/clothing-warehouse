@@ -42,6 +42,8 @@ let filterState = {
 };
 const filterColors = colors.slice(0, 11);
 let colorVariantCount = 1;
+let currentEditProduct = null;
+let editColorVariantsData = [];
 
 // ==================== HELPER FUNCTIONS ====================
 
@@ -3401,21 +3403,15 @@ function addColorVariant() {
     .querySelector(".color-variant-block")
     .cloneNode(true);
   const index = colorVariantCount;
-
   template.setAttribute("data-color-index", index);
   template.querySelector(".color-select").value = "";
-
-  // Reset các input
   template.querySelectorAll(".size-qty").forEach((input) => (input.value = 0));
   template
     .querySelectorAll(".size-price")
     .forEach((input) => (input.value = 0));
   template.querySelectorAll(".size-cost").forEach((input) => (input.value = 0));
-
-  // Hiển thị nút xóa
   const deleteBtn = template.querySelector(".btn-danger");
   deleteBtn.style.display = "inline-block";
-
   container.appendChild(template);
   colorVariantCount++;
 }
@@ -3674,11 +3670,6 @@ function resetAddProductForm() {
   colorVariantCount = 1;
 }
 
-// Biến toàn cục lưu dữ liệu sản phẩm đang sửa
-let currentEditProduct = null;
-let editColorVariantsData = [];
-
-// Hàm mở modal sửa sản phẩm
 async function editProduct(productId) {
   try {
     showLoading();
@@ -3688,11 +3679,8 @@ async function editProduct(productId) {
     if (!response.ok) {
       throw new Error(result.message || "Không thể tải thông tin sản phẩm");
     }
-
     const product = result.data || result;
     currentEditProduct = product;
-
-    // Đổ dữ liệu vào form
     document.getElementById("editProductID").value = product.productID;
     document.getElementById("editProductCode").value =
       product.productCode || "";
@@ -3710,8 +3698,6 @@ async function editProduct(productId) {
       product.sellingPrice || 0;
     document.getElementById("editDescription").value =
       product.description || "";
-
-    // Format hiển thị giá
     const purchaseDisplay = document.querySelector(
       ".edit-purchase-price-display",
     );
@@ -3722,11 +3708,8 @@ async function editProduct(productId) {
       purchaseDisplay.textContent = formatPrice(product.purchasePrice || 0);
     if (sellingDisplay)
       sellingDisplay.textContent = formatPrice(product.sellingPrice || 0);
-
-    // Xây dựng dữ liệu variants cho edit
     editColorVariantsData = [];
     if (product.variants && product.variants.length > 0) {
-      // Nhóm variants theo màu
       const colorMap = new Map();
       product.variants.forEach((v) => {
         if (!colorMap.has(v.colorID)) {
@@ -3746,11 +3729,7 @@ async function editProduct(productId) {
       });
       editColorVariantsData = Array.from(colorMap.values());
     }
-
-    // Render variants
     renderEditColorVariants();
-
-    // Mở modal
     const modal = document.getElementById("editProductModal");
     if (modal) modal.style.display = "flex";
   } catch (error) {
@@ -3763,13 +3742,14 @@ async function editProduct(productId) {
 
 // Render danh sách màu sắc trong modal sửa
 function renderEditColorVariants() {
-    const container = document.getElementById("editColorVariantsContainer");
-    if (!container) return;
-    
-    const sizeType = document.querySelector("#editProductModal #sizeTypeSelect")?.value || "ao";
-    
-    if (editColorVariantsData.length === 0) {
-        container.innerHTML = `
+  const container = document.getElementById("editColorVariantsContainer");
+  if (!container) return;
+
+  const sizeType =
+    document.querySelector("#editProductModal #sizeTypeSelect")?.value || "ao";
+
+  if (editColorVariantsData.length === 0) {
+    container.innerHTML = `
             <div class="color-variant-block">
                 <div class="mb-2">
                     <label class="form-label mb-0">Màu sắc</label>
@@ -3792,211 +3772,369 @@ function renderEditColorVariants() {
                 <div class="edit-size-table-container"></div>
             </div>
         `;
-        const sizeContainer = container.querySelector('.edit-size-table-container');
-        if (sizeContainer) {
-            renderEditSizeTable(sizeContainer, sizeType);
-        }
-        return;
+    const sizeContainer = container.querySelector(".edit-size-table-container");
+    if (sizeContainer) {
+      renderEditSizeTable(sizeContainer, sizeType);
     }
-    
-    container.innerHTML = editColorVariantsData.map((color, idx) => `
+    return;
+  }
+
+  container.innerHTML = editColorVariantsData
+    .map(
+      (color, idx) => `
         <div class="color-variant-block" data-color-index="${idx}" data-color-id="${color.colorID}" data-color-name="${color.colorName}">
             <div class="mb-2">
                 <label class="form-label mb-0">Màu sắc</label>
                 <select class="form-select color-select" data-color-index="${idx}" onchange="updateEditColor(${idx}, this.value)">
                     <option value="">Chọn màu</option>
-                    <option value="Đỏ" ${color.colorName === 'Đỏ' ? 'selected' : ''}>Đỏ</option>
-                    <option value="Xanh" ${color.colorName === 'Xanh' ? 'selected' : ''}>Xanh</option>
-                    <option value="Đen" ${color.colorName === 'Đen' ? 'selected' : ''}>Đen</option>
-                    <option value="Trắng" ${color.colorName === 'Trắng' ? 'selected' : ''}>Trắng</option>
-                    <option value="Vàng" ${color.colorName === 'Vàng' ? 'selected' : ''}>Vàng</option>
-                    <option value="Hồng" ${color.colorName === 'Hồng' ? 'selected' : ''}>Hồng</option>
-                    <option value="Xám" ${color.colorName === 'Xám' ? 'selected' : ''}>Xám</option>
-                    <option value="Tím" ${color.colorName === 'Tím' ? 'selected' : ''}>Tím</option>
-                    <option value="Cam" ${color.colorName === 'Cam' ? 'selected' : ''}>Cam</option>
-                    <option value="Nâu" ${color.colorName === 'Nâu' ? 'selected' : ''}>Nâu</option>
-                    <option value="Xanh lá" ${color.colorName === 'Xanh lá' ? 'selected' : ''}>Xanh lá</option>
+                    <option value="Đỏ" ${color.colorName === "Đỏ" ? "selected" : ""}>Đỏ</option>
+                    <option value="Xanh" ${color.colorName === "Xanh" ? "selected" : ""}>Xanh</option>
+                    <option value="Đen" ${color.colorName === "Đen" ? "selected" : ""}>Đen</option>
+                    <option value="Trắng" ${color.colorName === "Trắng" ? "selected" : ""}>Trắng</option>
+                    <option value="Vàng" ${color.colorName === "Vàng" ? "selected" : ""}>Vàng</option>
+                    <option value="Hồng" ${color.colorName === "Hồng" ? "selected" : ""}>Hồng</option>
+                    <option value="Xám" ${color.colorName === "Xám" ? "selected" : ""}>Xám</option>
+                    <option value="Tím" ${color.colorName === "Tím" ? "selected" : ""}>Tím</option>
+                    <option value="Cam" ${color.colorName === "Cam" ? "selected" : ""}>Cam</option>
+                    <option value="Nâu" ${color.colorName === "Nâu" ? "selected" : ""}>Nâu</option>
+                    <option value="Xanh lá" ${color.colorName === "Xanh lá" ? "selected" : ""}>Xanh lá</option>
                 </select>
                 <button type="button" class="btn btn-danger btn-sm mt-2" onclick="removeEditColorVariant(this)">🗑️ Xóa màu</button>
             </div>
             <div class="edit-size-table-container" data-color-index="${idx}"></div>
         </div>
-    `).join('');
-    
-    // Render size table cho từng màu
-    editColorVariantsData.forEach((color, idx) => {
-        const sizeContainer = document.querySelector(`.edit-size-table-container[data-color-index="${idx}"]`);
-        if (sizeContainer) {
-            renderEditSizeTable(sizeContainer, sizeType, color.sizes || []);
-        }
-    });
+    `,
+    )
+    .join("");
+  editColorVariantsData.forEach((color, idx) => {
+    const sizeContainer = document.querySelector(
+      `.edit-size-table-container[data-color-index="${idx}"]`,
+    );
+    if (sizeContainer) {
+      renderEditSizeTable(sizeContainer, sizeType, color.sizes || []);
+    }
+  });
 }
 
 // Thêm hàm xóa màu trong modal sửa
 function removeEditColorVariant(button) {
-    const block = button.closest('.color-variant-block');
-    if (document.querySelectorAll('#editColorVariantsContainer .color-variant-block').length > 1) {
-        block.remove();
-        // Cập nhật lại editColorVariantsData
-        updateEditColorVariantsDataFromDOM();
-    } else {
-        showNotification("Phải có ít nhất một màu sắc", "warning");
-    }
+  const block = button.closest(".color-variant-block");
+  if (
+    document.querySelectorAll(
+      "#editColorVariantsContainer .color-variant-block",
+    ).length > 1
+  ) {
+    block.remove();
+    updateEditColorVariantsDataFromDOM();
+  } else {
+    showNotification("Phải có ít nhất một màu sắc", "warning");
+  }
 }
 
-// Render bảng size cho modal sửa sản phẩm
 function renderEditSizeTable(container, sizeType, existingSizes = []) {
-    if (!container) return;
-    
-    // Tạo map để tra cứu nhanh số lượng tồn kho
-    const sizeMap = new Map();
-    if (existingSizes && existingSizes.length > 0) {
-        existingSizes.forEach(size => {
-            sizeMap.set(size.sizeID, {
-                quantity: size.quantityInStock || 0,
-                variantID: size.variantID
-            });
-        });
-    }
-    
-    let html = '';
-    
-    if (sizeType === 'ao') {
-        const aoSizes = [
-            { id: 1, name: 'S' },
-            { id: 2, name: 'M' },
-            { id: 3, name: 'L' },
-            { id: 4, name: 'XL' },
-            { id: 5, name: 'XXL' },
-            { id: 6, name: 'XXXL' },
-            { id: 7, name: 'XXXXL' },
-            { id: 8, name: 'XXXXXL' }
-        ];
-        
-        html = `
+  if (!container) return;
+  const sizeMap = new Map();
+  if (existingSizes && existingSizes.length > 0) {
+    existingSizes.forEach((size) => {
+      sizeMap.set(size.sizeID, {
+        quantity: size.quantityInStock || 0,
+        variantID: size.variantID,
+      });
+    });
+  }
+
+  let html = "";
+
+  if (sizeType === "ao") {
+    const aoSizes = [
+      { id: 1, name: "S" },
+      { id: 2, name: "M" },
+      { id: 3, name: "L" },
+      { id: 4, name: "XL" },
+      { id: 5, name: "XXL" },
+      { id: 6, name: "XXXL" },
+      { id: 7, name: "XXXXL" },
+      { id: 8, name: "XXXXXL" },
+    ];
+
+    html = `
             <table class="table table-sm table-bordered">
                 <thead class="table-light"><tr><th>Kích thước</th><th>Số lượng</th></tr></thead>
                 <tbody>
-                    ${aoSizes.map(size => `
+                    ${aoSizes
+                      .map(
+                        (size) => `
                         <tr>
                             <td><strong>${size.name}</strong></td>
                             <td>
                                 <input type="number" class="form-control form-control-sm size-qty" 
                                        data-size-id="${size.id}" 
                                        data-size-name="${size.name}"
-                                       data-variant-id="${sizeMap.get(size.id)?.variantID || ''}"
+                                       data-variant-id="${sizeMap.get(size.id)?.variantID || ""}"
                                        value="${sizeMap.get(size.id)?.quantity || 0}" 
                                        min="0" placeholder="SL">
                             </td>
                         </tr>
-                    `).join('')}
+                    `,
+                      )
+                      .join("")}
                 </tbody>
             </table>
         `;
-    } 
-    else if (sizeType === 'quan') {
-        const quanSizes = [
-            { id: 9, name: '28' }, { id: 10, name: '29' }, { id: 11, name: '30' },
-            { id: 12, name: '31' }, { id: 13, name: '32' }, { id: 14, name: '33' },
-            { id: 15, name: '34' }, { id: 16, name: '35' }, { id: 17, name: '36' },
-            { id: 18, name: '37' }, { id: 19, name: '38' }
-        ];
-        
-        html = `
+  } else if (sizeType === "quan") {
+    const quanSizes = [
+      { id: 9, name: "28" },
+      { id: 10, name: "29" },
+      { id: 11, name: "30" },
+      { id: 12, name: "31" },
+      { id: 13, name: "32" },
+      { id: 14, name: "33" },
+      { id: 15, name: "34" },
+      { id: 16, name: "35" },
+      { id: 17, name: "36" },
+      { id: 18, name: "37" },
+      { id: 19, name: "38" },
+    ];
+
+    html = `
             <table class="table table-sm table-bordered">
                 <thead class="table-light"><tr><th>Kích thước</th><th>Số lượng</th></tr></thead>
                 <tbody>
-                    ${quanSizes.map(size => `
+                    ${quanSizes
+                      .map(
+                        (size) => `
                         <tr>
                             <td><strong>${size.name}</strong></td>
                             <td>
                                 <input type="number" class="form-control form-control-sm size-qty" 
                                        data-size-id="${size.id}" 
                                        data-size-name="${size.name}"
-                                       data-variant-id="${sizeMap.get(size.id)?.variantID || ''}"
+                                       data-variant-id="${sizeMap.get(size.id)?.variantID || ""}"
                                        value="${sizeMap.get(size.id)?.quantity || 0}" 
                                        min="0" placeholder="SL">
                             </td>
                         </tr>
-                    `).join('')}
+                    `,
+                      )
+                      .join("")}
                 </tbody>
             </table>
         `;
-    } 
-    else {
-        const khacSizes = [
-            { id: 20, name: 'FreeSize' },
-            { id: 21, name: 'OneSize' }
-        ];
-        
-        html = `
+  } else {
+    const khacSizes = [
+      { id: 20, name: "FreeSize" },
+      { id: 21, name: "OneSize" },
+    ];
+
+    html = `
             <table class="table table-sm table-bordered">
                 <thead class="table-light"><tr><th>Kích thước</th><th>Số lượng</th></tr></thead>
                 <tbody>
-                    ${khacSizes.map(size => `
+                    ${khacSizes
+                      .map(
+                        (size) => `
                         <tr>
                             <td><strong>${size.name}</strong></td>
                             <td>
                                 <input type="number" class="form-control form-control-sm size-qty" 
                                        data-size-id="${size.id}" 
                                        data-size-name="${size.name}"
-                                       data-variant-id="${sizeMap.get(size.id)?.variantID || ''}"
+                                       data-variant-id="${sizeMap.get(size.id)?.variantID || ""}"
                                        value="${sizeMap.get(size.id)?.quantity || 0}" 
                                        min="0" placeholder="SL">
                             </td>
                         </tr>
-                    `).join('')}
+                    `,
+                      )
+                      .join("")}
                 </tbody>
             </table>
         `;
-    }
-    
-    container.innerHTML = html;
+  }
+
+  container.innerHTML = html;
+}
+
+// Thêm màu sắc mới trong modal sửa sản phẩm
+function addEditColorVariant() {
+  const container = document.getElementById("editColorVariantsContainer");
+  if (!container) return;
+
+  const sizeType =
+    document.querySelector("#editProductModal #sizeTypeSelect")?.value || "ao";
+  const newIndex = Date.now(); // Dùng timestamp làm index tạm thời
+
+  const newColorBlock = document.createElement("div");
+  newColorBlock.className = "color-variant-block";
+  newColorBlock.setAttribute("data-color-index", newIndex);
+  newColorBlock.innerHTML = `
+        <div class="mb-2">
+            <label class="form-label mb-0">Màu sắc</label>
+            <select class="form-select color-select" onchange="updateNewEditColor(this)">
+                <option value="">Chọn màu</option>
+                <option value="Đỏ">Đỏ</option>
+                <option value="Xanh">Xanh</option>
+                <option value="Đen">Đen</option>
+                <option value="Trắng">Trắng</option>
+                <option value="Vàng">Vàng</option>
+                <option value="Hồng">Hồng</option>
+                <option value="Xám">Xám</option>
+                <option value="Tím">Tím</option>
+                <option value="Cam">Cam</option>
+                <option value="Nâu">Nâu</option>
+                <option value="Xanh lá">Xanh lá</option>
+            </select>
+            <button type="button" class="btn btn-danger btn-sm mt-2" onclick="removeEditColorVariant(this)">🗑️ Xóa màu</button>
+        </div>
+        <div class="edit-size-table-container"></div>
+    `;
+
+  container.appendChild(newColorBlock);
+
+  // Render size table cho màu mới
+  const sizeContainer = newColorBlock.querySelector(
+    ".edit-size-table-container",
+  );
+  if (sizeContainer) {
+    renderEditSizeTable(sizeContainer, sizeType);
+  }
+
+  // Cập nhật dữ liệu variants sau khi thêm
+  updateEditColorVariantsDataFromDOM();
+}
+
+// Cập nhật màu sắc cho block mới
+function updateNewEditColor(selectElement) {
+  const colorName = selectElement.value;
+  if (!colorName) return;
+
+  const block = selectElement.closest(".color-variant-block");
+  const colorID = getColorIdByName(colorName);
+
+  // Cập nhật data attribute
+  block.setAttribute("data-color-id", colorID);
+  block.setAttribute("data-color-name", colorName);
+
+  // Cập nhật dữ liệu variants
+  updateEditColorVariantsDataFromDOM();
+}
+
+// Hàm xóa màu trong modal sửa
+function removeEditColorVariant(button) {
+  const block = button.closest(".color-variant-block");
+  const container = document.getElementById("editColorVariantsContainer");
+  const blocks = container.querySelectorAll(".color-variant-block");
+
+  if (blocks.length > 1) {
+    block.remove();
+    updateEditColorVariantsDataFromDOM();
+  } else {
+    showNotification("Phải có ít nhất một màu sắc", "warning");
+  }
 }
 
 // Cập nhật dữ liệu variants từ DOM
 function updateEditColorVariantsDataFromDOM() {
-    const blocks = document.querySelectorAll('#editColorVariantsContainer .color-variant-block');
-    editColorVariantsData = [];
-    
-    blocks.forEach(block => {
-        const colorSelect = block.querySelector('.color-select');
-        const colorName = colorSelect?.value;
-        if (!colorName) return;
-        
-        const colorID = getColorIdByName(colorName);
-        const sizes = [];
-        const sizeInputs = block.querySelectorAll('.size-qty');
-        
-        sizeInputs.forEach(input => {
-            const quantity = parseInt(input.value) || 0;
-            const sizeID = parseInt(input.dataset.sizeId);
-            const sizeName = input.dataset.sizeName;
-            const variantID = input.dataset.variantId ? parseInt(input.dataset.variantId) : null;
-            
-            sizes.push({
-                sizeID: sizeID,
-                sizeName: sizeName,
-                quantityInStock: quantity,
-                variantID: variantID
-            });
+  const blocks = document.querySelectorAll(
+    "#editColorVariantsContainer .color-variant-block",
+  );
+  const newVariantsData = [];
+
+  blocks.forEach((block) => {
+    const colorSelect = block.querySelector(".color-select");
+    const colorName = colorSelect?.value;
+    if (!colorName) return;
+
+    const colorID = getColorIdByName(colorName);
+    const sizes = [];
+    const sizeInputs = block.querySelectorAll(".size-qty");
+
+    sizeInputs.forEach((input) => {
+      const quantity = parseInt(input.value) || 0;
+      const sizeID = parseInt(input.dataset.sizeId);
+      const sizeName = input.dataset.sizeName;
+      const variantID = input.dataset.variantId
+        ? parseInt(input.dataset.variantId)
+        : null;
+
+      if (quantity > 0) {
+        sizes.push({
+          sizeID: sizeID,
+          sizeName: sizeName,
+          quantityInStock: quantity,
+          variantID: variantID,
         });
-        
-        editColorVariantsData.push({
-            colorID: colorID,
-            colorName: colorName,
-            sizes: sizes.filter(s => s.quantityInStock > 0)
-        });
+      }
     });
+
+    if (sizes.length > 0 || (colorName && blocks.length === 1)) {
+      newVariantsData.push({
+        colorID: colorID,
+        colorName: colorName,
+        sizes: sizes,
+      });
+    }
+  });
+  window.editColorVariantsData = newVariantsData;
+}
+
+function updateEditColor(index, colorName) {
+  if (window.editColorVariantsData && window.editColorVariantsData[index]) {
+    window.editColorVariantsData[index].colorName = colorName;
+    window.editColorVariantsData[index].colorID = getColorIdByName(colorName);
+  }
+  const block = document.querySelector(
+    `.color-variant-block[data-color-index="${index}"]`,
+  );
+  if (block) {
+    block.setAttribute("data-color-name", colorName);
+    block.setAttribute("data-color-id", getColorIdByName(colorName));
+  }
+  updateEditColorVariantsDataFromDOM();
+}
+
+function updateEditColorVariantsDataFromDOM() {
+  const blocks = document.querySelectorAll(
+    "#editColorVariantsContainer .color-variant-block",
+  );
+  editColorVariantsData = [];
+  blocks.forEach((block) => {
+    const colorSelect = block.querySelector(".color-select");
+    const colorName = colorSelect?.value;
+    if (!colorName) return;
+    const colorID = getColorIdByName(colorName);
+    const sizes = [];
+    const sizeInputs = block.querySelectorAll(".size-qty");
+    sizeInputs.forEach((input) => {
+      const quantity = parseInt(input.value) || 0;
+      const sizeID = parseInt(input.dataset.sizeId);
+      const sizeName = input.dataset.sizeName;
+      const variantID = input.dataset.variantId
+        ? parseInt(input.dataset.variantId)
+        : null;
+      sizes.push({
+        sizeID: sizeID,
+        sizeName: sizeName,
+        quantityInStock: quantity,
+        variantID: variantID,
+      });
+    });
+
+    editColorVariantsData.push({
+      colorID: colorID,
+      colorName: colorName,
+      sizes: sizes.filter((s) => s.quantityInStock > 0),
+    });
+  });
 }
 
 // Cập nhật màu sắc khi thay đổi select
 function updateEditColor(index, colorName) {
-    if (editColorVariantsData[index]) {
-        editColorVariantsData[index].colorName = colorName;
-        editColorVariantsData[index].colorID = getColorIdByName(colorName);
-    }
-    renderEditColorVariants();
+  if (editColorVariantsData[index]) {
+    editColorVariantsData[index].colorName = colorName;
+    editColorVariantsData[index].colorID = getColorIdByName(colorName);
+  }
+  renderEditColorVariants();
 }
 
 async function submitEditProduct() {
@@ -4007,22 +4145,15 @@ async function submitEditProduct() {
     showNotification("Vui lòng nhập tên sản phẩm!", "error");
     return;
   }
-
-  // Thu thập dữ liệu variants
   const variants = [];
   const colorBlocks = document.querySelectorAll(
     "#editColorVariantsContainer .color-variant-block",
   );
-
   colorBlocks.forEach((block) => {
     const colorSelect = block.querySelector(".color-select");
     const colorName = colorSelect?.value;
     if (!colorName) return;
-
-    // Lấy colorID từ tên màu
     const colorID = getColorIdByName(colorName);
-
-    // Lấy các size input
     const sizeInputs = block.querySelectorAll(".size-qty");
     sizeInputs.forEach((input) => {
       const quantity = parseInt(input.value) || 0;
@@ -4030,7 +4161,6 @@ async function submitEditProduct() {
       const variantID = input.dataset.variantId
         ? parseInt(input.dataset.variantId)
         : null;
-
       if (quantity > 0) {
         variants.push({
           variantID: variantID,
@@ -4084,13 +4214,21 @@ async function submitEditProduct() {
 }
 
 function getColorIdByName(colorName) {
-    const colorMap = {
-        'Đỏ': 1, 'Xanh': 2, 'Đen': 3, 'Trắng': 4,
-        'Vàng': 5, 'Hồng': 6, 'Xám': 7, 'Tím': 8,
-        'Cam': 9, 'Nâu': 10, 'Xanh lá': 11,
-        'Xanh dương': 12
-    };
-    return colorMap[colorName] || 0;
+  const colorMap = {
+    Đỏ: 1,
+    Xanh: 2,
+    Đen: 3,
+    Trắng: 4,
+    Vàng: 5,
+    Hồng: 6,
+    Xám: 7,
+    Tím: 8,
+    Cam: 9,
+    Nâu: 10,
+    "Xanh lá": 11,
+    "Xanh dương": 12,
+  };
+  return colorMap[colorName] || 0;
 }
 // Đóng modal sửa
 function closeEditProductModal() {

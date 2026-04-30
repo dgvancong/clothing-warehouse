@@ -20,7 +20,6 @@
   margin-bottom: 0.25rem;
 }
 
-/* Custom Select */
 .custom-select {
   position: relative;
   width: 100%;
@@ -53,7 +52,6 @@
   pointer-events: none;
 }
 
-/* Date Picker Custom */
 .date-picker-wrapper {
   position: relative;
 }
@@ -83,7 +81,6 @@
   pointer-events: none;
 }
 
-/* Quick Date Options */
 .quick-date-options {
   display: flex;
   gap: 8px;
@@ -106,7 +103,6 @@
   background: #e2e8f0;
 }
 
-/* Stat Cards */
 .stat-card {
   border-radius: 20px;
   transition: all 0.3s ease;
@@ -128,7 +124,6 @@
   justify-content: center;
 }
 
-/* Table Styles */
 .table {
   margin-bottom: 0;
 }
@@ -153,7 +148,6 @@
   background-color: #f8fafc;
 }
 
-/* Status Badge */
 .status-badge {
   display: inline-flex;
   align-items: center;
@@ -191,7 +185,6 @@
   color: #dc2626;
 }
 
-/* Expand Row */
 .expand-detail-row {
   background-color: #f8fafc;
 }
@@ -220,7 +213,6 @@
   background-color: #e2e8f0;
 }
 
-/* Pagination */
 .pagination-wrapper {
   display: flex;
   justify-content: flex-end;
@@ -264,14 +256,12 @@
   font-size: 0.875rem;
 }
 
-/* Alert */
 .alert-info-custom {
   background: linear-gradient(135deg, #eff6ff 0%, #e0f2fe 100%);
   border: none;
   color: #0369a1;
 }
 
-/* Card */
 .card {
   border-radius: 20px;
 }
@@ -281,7 +271,6 @@
   background-color: white;
 }
 
-/* Button Excel */
 .btn-excel {
   background-color: #f1f5f9;
   border: none;
@@ -297,7 +286,6 @@
   background-color: #e2e8f0;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .stat-card h3 {
     font-size: 1.25rem;
@@ -310,32 +298,29 @@
   }
 }
 
-/* SVG Icon Styles */
 .btn-expand svg {
-    transition: all 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .btn-expand:hover svg {
-    stroke: #0288d1;
-    transform: scale(1.05);
+  stroke: #0288d1;
+  transform: scale(1.05);
 }
 
 .card-header svg {
-    vertical-align: middle;
+  vertical-align: middle;
 }
 
-/* Animation cho SVG khi expand */
 .expand-content svg {
-    vertical-align: middle;
+  vertical-align: middle;
 }
 
-/* Hover effect cho các icon trong card */
 .card-header svg {
-    transition: transform 0.2s ease;
+  transition: transform 0.2s ease;
 }
 
 .card:hover .card-header svg {
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 .order-item-variant {

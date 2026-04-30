@@ -1563,7 +1563,6 @@ textarea.form-control {
   border-radius: 8px;
   cursor: pointer;
 }
-/* Color Variant Block */
 .color-variant-block {
   background: #f8fafc;
   border: 1px solid #e2e8f0;
@@ -1578,7 +1577,6 @@ textarea.form-control {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-/* Color Selector */
 .color-selector {
   flex: 1;
 }
@@ -1612,7 +1610,6 @@ textarea.form-control {
   box-shadow: 0 0 0 3px rgba(3, 169, 244, 0.1);
 }
 
-/* Size Quantity Table */
 .size-quantity-table {
   margin-top: 12px;
 }
@@ -1657,7 +1654,6 @@ textarea.form-control {
   box-shadow: 0 0 0 2px rgba(3, 169, 244, 0.1);
 }
 
-/* Nút xóa màu */
 .btn-danger-sm {
   background: #fee2e2;
   border: none;
@@ -1675,7 +1671,6 @@ textarea.form-control {
   transform: scale(1.02);
 }
 
-/* Nút thêm màu */
 .btn-outline-primary-sm {
   background: white;
   border: 1.5px solid #03a9f4;
@@ -1730,60 +1725,39 @@ textarea.form-control {
   border: 1px solid #91d5ff;
 }
 
-
 .modal-product-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.5);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 10000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
 }
 
 .modal-product-container {
-    background: white;
-    border-radius: 20px;
-    max-height: 90vh;
-    overflow-y: auto;
+  background: white;
+  border-radius: 20px;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .modal-product-header {
-    padding: 20px 24px;
-    border-bottom: 1px solid #e9edf2;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.modal-product-body {
-    padding: 20px 24px;
-}
-
-.modal-product-footer {
-    padding: 16px 24px;
-    border-top: 1px solid #e9edf2;
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-}
-
-.btn-cancel-modal {
-    padding: 10px 24px;
-    border-radius: 40px;
-    background: #f1f5f9;
-    border: none;
-    cursor: pointer;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e9edf2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .btn-submit-modal {
-    padding: 10px 24px;
-    border-radius: 40px;
-    background: #03A9F4;
-    color: white;
-    border: none;
-    cursor: pointer;
+  padding: 10px 24px;
+  border-radius: 40px;
+  background: #03a9f4;
+  color: white;
+  border: none;
+  cursor: pointer;
 }
