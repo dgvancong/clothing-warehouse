@@ -623,7 +623,7 @@
   border-radius: 24px;
   width: 800px;
   max-width: 90%;
-  max-height: 85vh;
+  max-height: 88vh;
   overflow: hidden;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   animation: modalSlideIn 0.3s ease;
@@ -1728,4 +1728,62 @@ textarea.form-control {
   background: #e6f7ff;
   color: #1890ff;
   border: 1px solid #91d5ff;
+}
+
+
+.modal-product-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.modal-product-container {
+    background: white;
+    border-radius: 20px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-product-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid #e9edf2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-product-body {
+    padding: 20px 24px;
+}
+
+.modal-product-footer {
+    padding: 16px 24px;
+    border-top: 1px solid #e9edf2;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.btn-cancel-modal {
+    padding: 10px 24px;
+    border-radius: 40px;
+    background: #f1f5f9;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-submit-modal {
+    padding: 10px 24px;
+    border-radius: 40px;
+    background: #03A9F4;
+    color: white;
+    border: none;
+    cursor: pointer;
 }
